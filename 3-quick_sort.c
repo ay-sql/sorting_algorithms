@@ -1,10 +1,5 @@
 #include "sort.h"
 
-void swap_ints(int *a, int *b);
-int lomuto_partition(int *array, size_t size, int left, int right);
-void lomuto_sort(int *array, size_t size, int left, int right);
-void quick_sort(int *array, size_t size);
-
 /**
  * swap_ints - Swap two integers in an array.
  * @a: The first integer to swap.
@@ -37,12 +32,18 @@ int lomuto_partition(int *array, size_t size, int left, int right)
         if (array[j] < pivot)
         {
             i++;
-            swap_ints(&array[i], &array[j]);
-            print_array(array, size);
+            if (i != j)
+            {
+                swap_ints(&array[i], &array[j]);
+                print_array(array, size);
+            }
         }
     }
-    swap_ints(&array[i + 1], &array[right]);
-    print_array(array, size);
+    if (array[i + 1] != array[right])
+    {
+        swap_ints(&array[i + 1], &array[right]);
+        print_array(array, size);
+    }
 
     return i + 1;
 }
