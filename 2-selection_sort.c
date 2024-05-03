@@ -1,22 +1,22 @@
 #include "sort.h"
 
 /**
- * swap_ints - Swap two integers in an array.
- * @a: The first integer to swap.
- * @b: The second integer to swap.
+ * swap_elements - Swap two elements in an array.
+ * @a: Pointer to the first element.
+ * @b: Pointer to the second element.
  */
-void swap_ints(int *a, int *b)
+void swap_elements(int *a, int *b)
 {
-    int tmp = *a;
+    int temp = *a;
     *a = *b;
-    *b = tmp;
+    *b = temp;
 }
 
 /**
- * selection_sort - Sort an array of integers in ascending order
- *                  using the selection sort algorithm.
- * @array: An array of integers.
- * @size: The size of the array.
+ * selection_sort - Sorts an array of integers in ascending order using
+ *                  the selection sort algorithm.
+ * @array: Pointer to the array to be sorted.
+ * @size: Size of the array.
  *
  * Description: Prints the array after each swap.
  */
@@ -25,19 +25,18 @@ void selection_sort(int *array, size_t size)
     if (array == NULL || size < 2)
         return;
 
-    for (size_t i = 0; i < size - 1; i++)
+    size_t i, j;
+    int *min;
+
+    for (i = 0; i < size - 1; i++)
     {
-        size_t min_index = i;
+        min = array + i;
+        for (j = i + 1; j < size; j++)
+            min = (array[j] < *min) ? (array + j) : min;
 
-        for (size_t j = i + 1; j < size; j++)
+        if ((array + i) != min)
         {
-            if (array[j] < array[min_index])
-                min_index = j;
-        }
-
-        if (i != min_index)
-        {
-            swap_ints(&array[i], &array[min_index]);
+            swap_elements(array + i, min);
             print_array(array, size);
         }
     }
